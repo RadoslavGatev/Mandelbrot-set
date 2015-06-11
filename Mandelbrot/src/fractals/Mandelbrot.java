@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
  * Renders the Mandelbrot set fractal
  * 
  * @author Alex Spurling
- * 
+ *
  */
 public class Mandelbrot implements Fractal {
 
@@ -22,7 +22,7 @@ public class Mandelbrot implements Fractal {
 	private int height;
 
 	private Gradient gradient;
-	// /** The maximum number of iterations to use for the gradient cycle */
+	/** The maximum number of iterations to use for the gradient cycle */
 	private final int MAX_GRAD_ITERATIONS = 500;
 
 	private int countOfThreads = 1;
@@ -40,19 +40,19 @@ public class Mandelbrot implements Fractal {
 	public Mandelbrot(int width, int height, int countOfThreads) {
 		setSize(width, height);
 
-		// We always have an initial width of 3
-		initialWidth = 3;
+		// We always have an initial width of 4
+		initialWidth = 4;
 		initialHeight = initialWidth / width * height;
 
 		curXStart = -0.5 - initialWidth / 2;
 		curYStart = 0 - initialHeight / 2;
 
-		this.countOfThreads = countOfThreads;
-
 		gradient = new Gradient(MAX_GRAD_ITERATIONS, new Color(0, 0, 90), // Navy
 				new Color(170, 255, 255), // Light blue
 				new Color(255, 225, 50), // Yellow
 				new Color(157, 58, 17)); // Brown
+
+		this.countOfThreads = countOfThreads;
 	}
 
 	/*
@@ -78,7 +78,7 @@ public class Mandelbrot implements Fractal {
 		// Reset the cancel flag before starting
 		cancelled = false;
 
-		executor = Executors.newFixedThreadPool(this.countOfThreads);
+		executor = Executors.newFixedThreadPool(countOfThreads);
 
 		for (int i = 0; i < countOfThreads; i++) {
 			int x = 0;
@@ -91,7 +91,7 @@ public class Mandelbrot implements Fractal {
 		executor.shutdown();
 
 		try {
-			executor.awaitTermination(10, TimeUnit.SECONDS);
+			executor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
 			System.err.println("Rendering interrupted");
 			e.printStackTrace();
@@ -109,7 +109,7 @@ public class Mandelbrot implements Fractal {
 	 * Runnable inner class to allow parallel calculations
 	 * 
 	 * @author Alex Spurling
-	 * 
+	 *
 	 */
 	private class MandelbrotRenderer implements Runnable {
 
@@ -224,7 +224,7 @@ public class Mandelbrot implements Fractal {
 		cancelled = true;
 		try {
 			if (executor != null) {
-				executor.awaitTermination(10, TimeUnit.SECONDS);
+				executor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
 				executor = null;
 			}
 		} catch (InterruptedException e) {
