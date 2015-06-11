@@ -48,7 +48,7 @@ public class Main {
 		try {
 
 			int height = 480, width = 640;
-			String fileName = null;
+			String fileName = "zad21.png";
 			int countOfThreads = 1;
 			double a[] = new double[2];
 			double b[] = new double[2];

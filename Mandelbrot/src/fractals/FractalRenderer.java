@@ -17,7 +17,6 @@ public class FractalRenderer implements Runnable {
 	private int height;
 	private long magnification = 1;
 	private int iterations = 100;
-	public final Object redrawLock = new Object();
 
 	// The x and y pixel coordinates to centre on
 	private int x;
@@ -39,6 +38,7 @@ public class FractalRenderer implements Runnable {
 
 	@Override
 	public void run() {
+		
 		if (fractal.drawFractal(x, y, magnification, iterations)) {
 			canvas.repaint();
 		}

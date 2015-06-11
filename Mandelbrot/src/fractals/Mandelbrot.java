@@ -37,6 +37,9 @@ public class Mandelbrot implements Fractal {
 
 	private volatile ExecutorService executor;
 
+	private long startTimeMillis = 0;
+	private long endTimeMillis = 0;
+
 	public Mandelbrot(int width, int height, int countOfThreads) {
 		setSize(width, height);
 
@@ -78,6 +81,9 @@ public class Mandelbrot implements Fractal {
 		// Reset the cancel flag before starting
 		cancelled = false;
 
+		endTimeMillis = 0;
+		startTimeMillis = System.currentTimeMillis();
+
 		executor = Executors.newFixedThreadPool(countOfThreads);
 
 		for (int i = 0; i < countOfThreads; i++) {
@@ -96,6 +102,10 @@ public class Mandelbrot implements Fractal {
 			System.err.println("Rendering interrupted");
 			e.printStackTrace();
 		}
+
+		endTimeMillis = System.currentTimeMillis();
+
+		System.out.println("Time :" + (endTimeMillis - startTimeMillis) + "ms");
 
 		curXStart = xStart;
 		curYStart = yStart;
