@@ -53,21 +53,19 @@ public class FractalRenderer implements Runnable {
 	@Override
 	public void run() {
 
-		MandelbrotFrame mandelbrotFrame = new MandelbrotFrame(fractal);
-
 		if (fractal.drawFractal(x, y, magnification, iterations)) {
-			mandelbrotFrame.getCanvas().repaint();
-
 			File outputfile = new File(fileName);
 			try {
 				ImageIO.write(fractal.getBufferedImage(), "png", outputfile);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			if (!isQuiet) {
+				MandelbrotFrame mandelbrotFrame = new MandelbrotFrame(fractal);
+				mandelbrotFrame.getCanvas().repaint();
+				mandelbrotFrame.setVisible(true);
+			}
 		}
 
-		if (!isQuiet) {
-			mandelbrotFrame.setVisible(true);
-		}
 	}
 }
