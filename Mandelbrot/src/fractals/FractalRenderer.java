@@ -1,30 +1,43 @@
 package fractals;
 
 import java.awt.Canvas;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+import org.apache.commons.math3.exception.NullArgumentException;
+
+import GUI.MandelbrotFrame;
 
 /**
  * The FractalRenderer coordinates and executes rendering events on the Fractal
  * object.
- * 
- * @author Alex Spurling
  *
  */
 public class FractalRenderer implements Runnable {
 
 	private Fractal fractal;
-	private Canvas canvas;
 	private int width;
 	private int height;
-	private long magnification = 1;
-	private int iterations = 100;
+	private long magnification = 2;
+	private int iterations = 70;
 
 	// The x and y pixel coordinates to centre on
 	private int x;
 	private int y;
 
-	public FractalRenderer(Canvas canvas, Fractal fractal, int width, int height) {
-		this.canvas = canvas;
-		this.fractal = fractal;
+	private String fileName;
+
+	public FractalRenderer(int width, int height, double[] a, double[] b,
+			String fileName, int countOfThreads, boolean isQuiet) {
+		if (fileName == null) {
+			throw new IllegalArgumentException(
+					"The fileName argument must not be equal to null");
+		}
+		this.fractal = new Mandelbrot(width, height, countOfThreads);
+		;
+		this.fileName = fileName;
 
 		setSize(width, height);
 	}
@@ -38,10 +51,22 @@ public class FractalRenderer implements Runnable {
 
 	@Override
 	public void run() {
-		
+
+		MandelbrotFrame mandelbrotFrame = new MandelbrotFrame(fractal);
+
 		if (fractal.drawFractal(x, y, magnification, iterations)) {
-			canvas.repaint();
+			mandelbrotFrame.getCanvas().repaint();
+
+			File outputfile = new File(fileName);
+			try {
+				ImageIO.write(fractal.getBufferedImage(), "png", outputfile);
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
 		}
+
+		mandelbrotFrame.setVisible(true);
 
 	}
 

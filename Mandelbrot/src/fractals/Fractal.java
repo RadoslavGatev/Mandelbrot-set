@@ -1,30 +1,45 @@
 package fractals;
+
 import java.awt.image.BufferedImage;
 
 public interface Fractal {
 
 	/**
-	 * Renders the fractal. The method returns either when rendering is complete,
-	 * or when rendering is cancelled. If rendering was cancelled, the method
-	 * returns false, otherwise it returns true.
+	 * Renders the fractal. The method returns either when rendering is
+	 * complete, or when rendering is cancelled. If rendering was cancelled, the
+	 * method returns false, otherwise it returns true.
+	 * 
 	 * @param xPos
 	 * @param yPos
 	 * @param magnification
 	 * @param iterations
 	 * @return
 	 */
-	public boolean drawFractal(double xPos, double yPos, long magnification, int iterations);
+	public boolean drawFractal(double xPos, double yPos, long magnification,
+			int iterations);
 
 	/**
-	 * Resizes the fractal to the given width and height in pixels. 
+	 * Resizes the fractal to the given width and height in pixels.
+	 * 
 	 * @param width
 	 * @param height
 	 */
 	public void setSize(int width, int height);
 
 	/**
+	 * Get the width of fractal
+	 */
+	public int getWidth();
+
+	/**
+	 * Get the height of fractal
+	 */
+	public int getHeight();
+
+	/**
 	 * Returns the buffered image containing the latest rendered fractal. This
 	 * can be read even when the fractal is currently being rendered.
+	 * 
 	 * @return
 	 */
 	public BufferedImage getBufferedImage();

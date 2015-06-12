@@ -1,19 +1,7 @@
 package mainP;
 
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.Random;
-
-import javax.swing.JFrame;
-
 import org.apache.commons.cli.*;
-
 import fractals.*;
-import fractals.Mandelbrot;
 
 public class Main {
 
@@ -46,6 +34,8 @@ public class Main {
 
 		CommandLineParser parser = new DefaultParser();
 		try {
+
+			// arguments
 
 			int height = 480, width = 640;
 			String fileName = "zad21.png";
@@ -86,52 +76,14 @@ public class Main {
 				isQuiet = true;
 			}
 
-			// /////////
-
-			final JFrame f = new JFrame("Mandelbrot");
-			f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-			final Fractal fractal = new Mandelbrot(width, height,
-					countOfThreads);
-			final Canvas canvas = new FractalCanvas(fractal);
-
-			f.getContentPane().setPreferredSize(new Dimension(width, height));
-
-			f.getContentPane().add(canvas);
-			f.setResizable(false);
-			f.pack();
-			f.setLocationRelativeTo(null);
-
-			final FractalRenderer executor = new FractalRenderer(canvas,
-					fractal, width, height);
-
-			f.setVisible(true);
+			final FractalRenderer executor = new FractalRenderer(width, height,
+					a, b, fileName, countOfThreads, isQuiet);
 
 			Thread executorThread = new Thread(executor);
 			executorThread.start();
 
-			canvas.repaint();
 		} catch (ParseException exp) {
-			// oops, something went wrong
 			System.err.println("Parsing failed.  Reason: " + exp.getMessage());
-		}
-	}
-
-	@SuppressWarnings("serial")
-	static class FractalCanvas extends Canvas {
-		private Fractal fractal;
-
-		public FractalCanvas(Fractal fractal) {
-			this.fractal = fractal;
-		}
-
-		public void paint(Graphics g) {
-			g.drawImage(fractal.getBufferedImage(), 0, 0, Color.red, null);
-		}
-
-		@Override
-		public void update(Graphics g) {
-			paint(g);
 		}
 	}
 }

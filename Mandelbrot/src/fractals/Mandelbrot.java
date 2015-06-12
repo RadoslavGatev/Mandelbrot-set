@@ -45,11 +45,11 @@ public class Mandelbrot implements Fractal {
 	public Mandelbrot(int width, int height, int countOfThreads) {
 		setSize(width, height);
 
-		// We always have an initial width of 4
-		initialWidth = 4;
+		// // We always have an initial width of 4
+		initialWidth = 1;
 		initialHeight = initialWidth / width * height;
 
-		curXStart = -0.5 - initialWidth / 2;
+		curXStart = -1.2 - initialWidth / 2;
 		curYStart = 0 - initialHeight / 2;
 
 		gradient = new Gradient(MAX_GRAD_ITERATIONS, new Color(0, 0, 90), // Navy
@@ -184,7 +184,7 @@ public class Mandelbrot implements Fractal {
 						Complex zExp = z.exp();
 						Complex temp = z.add(zExp);
 						z = (temp.multiply(temp)).add(c);
-//						 z = (z.multiply(z)).add(c);
+						// z = (z.multiply(z)).add(c);
 						i++;
 					}
 
@@ -248,6 +248,16 @@ public class Mandelbrot implements Fractal {
 			System.err.println("Rendering interrupted");
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public int getWidth() {
+		return width;
+	}
+
+	@Override
+	public int getHeight() {
+		return height;
 	}
 
 }
