@@ -1,6 +1,8 @@
 package mainP;
 
 import org.apache.commons.cli.*;
+
+import GUI.FractalUI;
 import fractals.*;
 
 public class Main {
@@ -81,6 +83,14 @@ public class Main {
 
 			Thread executorThread = new Thread(executor);
 			executorThread.start();
+
+			if (!isQuiet) {
+				java.awt.EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						new FractalUI().setVisible(true);
+					}
+				});
+			}
 
 		} catch (ParseException exp) {
 			System.err.println("Parsing failed.  Reason: " + exp.getMessage());

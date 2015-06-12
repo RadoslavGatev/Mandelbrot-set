@@ -15,7 +15,7 @@ public class MandelbrotFrame extends JFrame {
 		super("Mandelbrot");
 		canvas = new FractalCanvas(fractal);
 
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 		this.getContentPane().setPreferredSize(
 				new Dimension(fractal.getWidth(), fractal.getHeight()));

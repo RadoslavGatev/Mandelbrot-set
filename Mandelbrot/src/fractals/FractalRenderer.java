@@ -28,6 +28,7 @@ public class FractalRenderer implements Runnable {
 	private int y;
 
 	private String fileName;
+	private boolean isQuiet;
 
 	public FractalRenderer(int width, int height, double[] a, double[] b,
 			String fileName, int countOfThreads, boolean isQuiet) {
@@ -36,7 +37,7 @@ public class FractalRenderer implements Runnable {
 					"The fileName argument must not be equal to null");
 		}
 		this.fractal = new Mandelbrot(width, height, countOfThreads);
-		;
+		this.isQuiet = isQuiet;
 		this.fileName = fileName;
 
 		setSize(width, height);
@@ -61,13 +62,12 @@ public class FractalRenderer implements Runnable {
 			try {
 				ImageIO.write(fractal.getBufferedImage(), "png", outputfile);
 			} catch (IOException e) {
-
 				e.printStackTrace();
 			}
 		}
 
-		mandelbrotFrame.setVisible(true);
-
+		if (!isQuiet) {
+			mandelbrotFrame.setVisible(true);
+		}
 	}
-
 }
