@@ -162,6 +162,9 @@ public class Mandelbrot implements Fractal {
 
 		@Override
 		public void run() {
+			// long threadId = Thread.currentThread().getId();
+			// System.out.println("Thread # " + threadId +
+			// " is doing this task");
 			for (int y = yPos; y < yLimit; y++) {
 				if (cancelled)
 					break;
