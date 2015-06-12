@@ -7,6 +7,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.math3.complex.Complex;
+
 /**
  * Renders the Mandelbrot set fractal
  * 
@@ -165,8 +167,6 @@ public class Mandelbrot implements Fractal {
 					break;
 				for (int x = xPos; x < xLimit; x++) {
 					int i = 0;
-					double xc = 0;
-					double yc = 0;
 					// Get the coordinates of the x/y point on the complex plane
 					// based on our current top right coordinate
 					// (xStart,yStart), and the
@@ -174,10 +174,17 @@ public class Mandelbrot implements Fractal {
 					// (xSize,ySize)
 					double x0 = xStart + xSize * ((double) x / width);
 					double y0 = yStart + ySize * ((double) y / height);
-					while (xc * xc + yc * yc < 2 * 2 && i < iterations) {
-						double xtemp = xc * xc - yc * yc;
-						yc = 2 * xc * yc + y0;
-						xc = xtemp + x0;
+
+					Complex c = new Complex(x0, y0);
+
+					Complex z = new Complex(0, 0);
+					while (z.getReal() * z.getReal() + z.getImaginary()
+							* z.getImaginary() < 2 * 2
+							&& i < iterations) {
+						Complex zExp = z.exp();
+						Complex temp = z.add(zExp);
+						z = (temp.multiply(temp)).add(c);
+//						 z = (z.multiply(z)).add(c);
 						i++;
 					}
 

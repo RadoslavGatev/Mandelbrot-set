@@ -108,7 +108,6 @@ public class Main {
 			f.setVisible(true);
 
 			Thread executorThread = new Thread(executor);
-			executorThread.setDaemon(true);
 			executorThread.start();
 
 			canvas.repaint();
