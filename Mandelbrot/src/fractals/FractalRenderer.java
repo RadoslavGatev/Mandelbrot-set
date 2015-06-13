@@ -29,6 +29,7 @@ public class FractalRenderer implements Runnable {
 
 	private String fileName;
 	private boolean isQuiet;
+	double[] a, b;
 
 	public FractalRenderer(int width, int height, double[] a, double[] b,
 			String fileName, int countOfThreads, boolean isQuiet) {
@@ -39,6 +40,8 @@ public class FractalRenderer implements Runnable {
 		this.fractal = new Mandelbrot(width, height, countOfThreads);
 		this.isQuiet = isQuiet;
 		this.fileName = fileName;
+		this.a = a;
+		this.b = b;
 
 		setSize(width, height);
 	}

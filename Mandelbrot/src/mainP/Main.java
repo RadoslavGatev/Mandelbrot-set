@@ -42,8 +42,8 @@ public class Main {
 			int height = 480, width = 640;
 			String fileName = "zad21.png";
 			int countOfThreads = 1;
-			double a[] = new double[2];
-			double b[] = new double[2];
+			double a[] = new double[] { -2.0, 2.0 };
+			double b[] = new double[] { -2.0, 2.0 };
 			boolean isQuiet = false;
 
 			// parse the command line arguments
