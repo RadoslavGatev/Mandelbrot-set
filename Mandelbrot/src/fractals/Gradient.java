@@ -7,7 +7,6 @@ import java.awt.Color;
  * cycles from the first to the last and then back to the first. A colour in
  * this spectrum can be obtained with the <tt>getColor</tt> method.
  * 
- * @author Alex Spurling
  *
  */
 public class Gradient {

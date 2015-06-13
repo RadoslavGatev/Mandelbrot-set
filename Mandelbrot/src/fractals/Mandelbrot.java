@@ -118,7 +118,6 @@ public class Mandelbrot implements Fractal {
 	 * Renders a given portion of the Mandelbrot fractal. Implemented as a
 	 * Runnable inner class to allow parallel calculations
 	 * 
-	 * @author Alex Spurling
 	 *
 	 */
 	private class MandelbrotRenderer implements Runnable {
