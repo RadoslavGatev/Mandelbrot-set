@@ -9,11 +9,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import fractals.FractalRenderer;
+
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
+
 import java.awt.Window.Type;
 
 /**
@@ -45,22 +48,27 @@ public class FractalUI extends javax.swing.JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				int height = Integer.parseInt(sizeH.getText());
-				int width = Integer.parseInt(sizeW.getText());
-				double a[] = new double[] {
-						Double.parseDouble(aStart.getText()),
-						Double.parseDouble(aEnd.getText()) };
-				double b[] = new double[] {
-						Double.parseDouble(bStart.getText()),
-						Double.parseDouble(bEnd.getText()) };
-				String name = fileName.getText();
-				int countOfThreads = Integer.parseInt(tasks.getText());
+				try {
+					int height = Integer.parseInt(sizeH.getText());
+					int width = Integer.parseInt(sizeW.getText());
+					double a[] = new double[] {
+							Double.parseDouble(aStart.getText()),
+							Double.parseDouble(aEnd.getText()) };
+					double b[] = new double[] {
+							Double.parseDouble(bStart.getText()),
+							Double.parseDouble(bEnd.getText()) };
+					String name = fileName.getText();
+					int countOfThreads = Integer.parseInt(tasks.getText());
 
-				final FractalRenderer executor = new FractalRenderer(width,
-						height, a, b, name, countOfThreads, false);
+					final FractalRenderer executor = new FractalRenderer(width,
+							height, a, b, name, countOfThreads, false);
 
-				Thread executorThread = new Thread(executor);
-				executorThread.start();
+					Thread executorThread = new Thread(executor);
+					executorThread.start();
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "Bad arguments",
+							"ERROR", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 	}
@@ -89,18 +97,20 @@ public class FractalUI extends javax.swing.JFrame {
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(
 				getContentPane());
-		layout.setHorizontalGroup(
-			layout.createParallelGroup(Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup()
-					.addComponent(arguments1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addContainerGap())
-		);
-		layout.setVerticalGroup(
-			layout.createParallelGroup(Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup()
-					.addComponent(arguments1, GroupLayout.PREFERRED_SIZE, 270, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(63, Short.MAX_VALUE))
-		);
+		layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING)
+				.addGroup(
+						layout.createSequentialGroup()
+								.addComponent(arguments1,
+										GroupLayout.DEFAULT_SIZE,
+										GroupLayout.DEFAULT_SIZE,
+										Short.MAX_VALUE).addContainerGap()));
+		layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING)
+				.addGroup(
+						layout.createSequentialGroup()
+								.addComponent(arguments1,
+										GroupLayout.PREFERRED_SIZE, 270,
+										GroupLayout.PREFERRED_SIZE)
+								.addContainerGap(63, Short.MAX_VALUE)));
 		getContentPane().setLayout(layout);
 
 		pack();
