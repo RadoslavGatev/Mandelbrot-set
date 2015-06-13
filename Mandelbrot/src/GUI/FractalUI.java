@@ -38,7 +38,7 @@ public class FractalUI extends javax.swing.JFrame {
 		aEnd = arguments1.getaEndField();
 		bStart = arguments1.getbStartField();
 		bEnd = arguments1.getbEndField();
-		fileName = arguments1.getNameField();
+		fileName = arguments1.getFilenameField();
 		tasks = arguments1.getThreadsField();
 		initButton();
 	}
@@ -85,7 +85,7 @@ public class FractalUI extends javax.swing.JFrame {
 
 		arguments1 = new Arguments();
 		arguments1.getFilenameField().setText("zad21.png");
-		arguments1.getNameField().setText("1");
+		arguments1.getThreadsField().setText("1");
 		arguments1.getbEndField().setText("2");
 		arguments1.getbStartField().setText("-2");
 		arguments1.getaEndField().setText("2");

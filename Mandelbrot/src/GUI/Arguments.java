@@ -23,10 +23,6 @@ public class Arguments extends javax.swing.JPanel {
 		return generateButton;
 	}
 
-	public javax.swing.JTextField getNameField() {
-		return threadsField;
-	}
-
 	public javax.swing.JTextField getFilenameField() {
 		return filenameField;
 	}
