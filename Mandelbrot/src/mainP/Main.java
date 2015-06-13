@@ -8,37 +8,11 @@ import fractals.*;
 public class Main {
 
 	public static void main(String[] args) {
-		Options options = new Options();
-		Option output = new Option(String.valueOf(Parameters.OUTPUT.charAt(0)),
-				true, "");
-		output.setLongOpt(Parameters.OUTPUT);
-		options.addOption(output);
-
-		Option quiet = new Option(String.valueOf(Parameters.QUIET.charAt(0)),
-				false, "");
-		quiet.setLongOpt(Parameters.QUIET);
-		options.addOption(quiet);
-
-		Option rect = new Option(String.valueOf(Parameters.RECT.charAt(0)),
-				true, "");
-		rect.setLongOpt(Parameters.RECT);
-		options.addOption(rect);
-
-		Option size = new Option(String.valueOf(Parameters.SIZE.charAt(0)),
-				true, "");
-		size.setLongOpt(Parameters.SIZE);
-		options.addOption(size);
-
-		Option tasks = new Option(String.valueOf(Parameters.TASKS.charAt(0)),
-				true, "");
-		tasks.setLongOpt(Parameters.TASKS);
-		options.addOption(tasks);
+		Options options = buildParameters();
 
 		CommandLineParser parser = new DefaultParser();
 		try {
-
-			// arguments
-
+			// default values
 			int height = 480, width = 640;
 			String fileName = "zad21.png";
 			int countOfThreads = 1;
@@ -49,6 +23,7 @@ public class Main {
 			// parse the command line arguments
 			CommandLine line = parser.parse(options, args);
 
+			// interpret available arguments
 			if (line.hasOption(Parameters.SIZE)) {
 				String sizeDimensions = line.getOptionValue(Parameters.SIZE);
 				String[] sizes = sizeDimensions.split("x");
@@ -78,6 +53,7 @@ public class Main {
 				isQuiet = true;
 			}
 
+			// start the worker
 			final FractalRenderer executor = new FractalRenderer(width, height,
 					a, b, fileName, countOfThreads, isQuiet);
 
@@ -95,5 +71,34 @@ public class Main {
 		} catch (ParseException exp) {
 			System.err.println("Parsing failed.  Reason: " + exp.getMessage());
 		}
+	}
+
+	private static Options buildParameters() {
+		Options options = new Options();
+		Option output = new Option(String.valueOf(Parameters.OUTPUT.charAt(0)),
+				true, "");
+		output.setLongOpt(Parameters.OUTPUT);
+		options.addOption(output);
+
+		Option quiet = new Option(String.valueOf(Parameters.QUIET.charAt(0)),
+				false, "");
+		quiet.setLongOpt(Parameters.QUIET);
+		options.addOption(quiet);
+
+		Option rect = new Option(String.valueOf(Parameters.RECT.charAt(0)),
+				true, "");
+		rect.setLongOpt(Parameters.RECT);
+		options.addOption(rect);
+
+		Option size = new Option(String.valueOf(Parameters.SIZE.charAt(0)),
+				true, "");
+		size.setLongOpt(Parameters.SIZE);
+		options.addOption(size);
+
+		Option tasks = new Option(String.valueOf(Parameters.TASKS.charAt(0)),
+				true, "");
+		tasks.setLongOpt(Parameters.TASKS);
+		options.addOption(tasks);
+		return options;
 	}
 }
