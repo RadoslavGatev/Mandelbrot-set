@@ -6,8 +6,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import org.apache.commons.math3.exception.NullArgumentException;
-
 import GUI.MandelbrotFrame;
 
 /**
